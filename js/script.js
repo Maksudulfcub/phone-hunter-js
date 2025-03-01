@@ -31,8 +31,8 @@ const displayPhones = (phones, isShowAll) => {
         <div class="card-body">
             <h2 class="card-title">${phone.phone_name}</h2>
             <p>${phone.slug}</p>
-             <div class="card-actions justify-end">
-                <button class="btn btn-primary">Show Details</button>
+             <div class="card-actions justify-center">
+                <button onClick = "handleShowDetails('${phone.slug}');my_modal_5.showModal()" class="btn btn-primary">Show Details</button>
             </div>
         </div>
         `;
@@ -41,6 +41,29 @@ const displayPhones = (phones, isShowAll) => {
     toggleLoadingSpinner(false)
 }
 
+const handleShowDetails = async (id) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+    const data = await res.json();
+    const phone = data.data;
+    showPhoneDetails(phone);
+}
+
+const showPhoneDetails = (phone) => {
+    console.log(phone);
+    const modalContainer = document.getElementById('modal-container');
+    const phoneDetailsContainer = document.getElementById('show-details-container');
+    phoneDetailsContainer.innerHTML = `
+    <img src="${phone.image}" alt="">
+    <h3 class="font-bold text-3xl">${phone.name}</h3>
+    <p>Storage : ${phone.mainFeatures.storage} </p>
+    <p>Display Size : ${phone.mainFeatures.displaySize} </p>
+    <p>Chipset : ${phone.mainFeatures.chipSet} </p>
+    <p>Memory : ${phone.mainFeatures.memory} </p>
+    <p>Release Date : ${phone.releaseDate} </p>
+    <p>Brand : ${phone.brand} </p>
+    `;
+    modalContainer.appendChild(phoneDetailsContainer);
+}
 
 const handleSearch = (isShowAll) => {
     toggleLoadingSpinner(true);

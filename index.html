@@ -17,12 +17,19 @@
     <main class="container mx-auto">
 
         <section>
-            <input id="search-field" type="text" placeholder="Search here..." class="input input-bordered w-full max-w-xs" />
+            <input id="search-field" type="text" placeholder="Search here..."
+                class="input input-bordered w-full max-w-xs" />
             <button onclick="handleSearch()" class="btn bg-pink-300">Search</button>
         </section>
 
         <section class="mt-10">
+            <div id="loading-spinner" class="text-center my-40 hidden">
+                <span class="loading loading-spinner text-pink-500 loading-xl"></span>
+            </div>
             <div id="phone-container" class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            </div>
+            <div class=" mx-auto text-center mt-10">
+                <button id="showAll-button" class="btn bg-pink-300 hidden">Show All</button>
             </div>
         </section>
     </main>

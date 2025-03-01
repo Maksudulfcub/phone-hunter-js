@@ -8,8 +8,18 @@ const loadPhone = async (searchText) => {
 const displayPhones = phones => {
     const phoneContainer = document.getElementById('phone-container');
     phoneContainer.textContent = '';
+
+    const showAllButton = document.getElementById('showAll-button');
+    if (phones.length > 12) {
+        showAllButton.classList.remove('hidden')
+    }
+    else {
+        showAllButton.classList.add('hidden')
+    }
+
+    phones = phones.slice(0, 12);
+
     phones.forEach(phone => {
-        console.log(phone);
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-base-100 shadow-xl`;
         phoneCard.innerHTML = `
@@ -26,13 +36,25 @@ const displayPhones = phones => {
         `;
         phoneContainer.appendChild(phoneCard);
     });
+    toggleLoadingSpinner(false)
 }
 
 
 const handleSearch = () => {
+    toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadPhone(searchText);
+}
+
+const toggleLoadingSpinner = (isLoading) => {
+    const loadingSpinner = document.getElementById('loading-spinner');
+    if (isLoading) {
+        loadingSpinner.classList.remove('hidden');
+    }
+    else {
+        loadingSpinner.classList.add('hidden');
+    }
 }
 
 // loadPhone();
